@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class LolChampionService implements ChampionService
 {
@@ -21,7 +22,7 @@ public class LolChampionService implements ChampionService
     private ModelConverter championConverter;
 
     @Override
-    public ArrayList<ChampionModel> getAllChampions()
+    public List<ChampionModel> getAllChampions()
     {
         try
         {
