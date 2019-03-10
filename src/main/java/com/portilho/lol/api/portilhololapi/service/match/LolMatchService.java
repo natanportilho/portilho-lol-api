@@ -15,4 +15,10 @@ public class LolMatchService implements MatchService
     {
         return connectionService.sendGetRequest(RequestConstants.MATCHES_FOR_USER_URL + accountId);
     }
+
+    @Override
+    public String getMatchById(String matchId)
+    {
+        return connectionService.sendGetRequest(RequestConstants.MATCH_BY_ID_URL + matchId);
+    }
 }

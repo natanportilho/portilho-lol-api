@@ -25,4 +25,9 @@ public class MatchController
     public ArrayList<MatchModel> getUserMatchHistory(@RequestParam String username){
         return matchesFacade.getUserMatchHistory(username);
     }
+
+    @RequestMapping("/match")
+    public String getMatchById(@RequestParam String matchId){
+        return matchesFacade.getMatchById(matchId);
+    }
 }

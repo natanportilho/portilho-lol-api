@@ -53,7 +53,6 @@ public class LolMatchesFacade implements MatchesFacade
         }
     }
 
-
     private ArrayList<MatchModel> createMatchesHistory(JSONArray matches) throws JSONException
     {
         ArrayList<MatchModel> matchesHistory = new ArrayList<>();
@@ -62,5 +61,11 @@ public class LolMatchesFacade implements MatchesFacade
             matchesHistory.add((MatchModel) matchConverter.convert(matches.getJSONObject(i)));
         }
         return matchesHistory;
+    }
+
+    @Override
+    public String getMatchById(String matchId)
+    {
+        return matchService.getMatchById(matchId);
     }
 }

@@ -9,4 +9,6 @@ public interface MatchesFacade
     String getPlayedMatchesForUser(String username);
 
     ArrayList<MatchModel> getUserMatchHistory(String username);
+
+    String getMatchById(String matchId);
 }
