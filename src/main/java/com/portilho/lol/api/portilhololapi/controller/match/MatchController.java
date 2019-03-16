@@ -1,5 +1,6 @@
 package com.portilho.lol.api.portilhololapi.controller.match;
 
+import com.portilho.lol.api.portilhololapi.database.DatabaseConnectorService;
 import com.portilho.lol.api.portilhololapi.facade.MatchesFacade;
 import com.portilho.lol.api.portilhololapi.model.match.MatchModel;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +14,10 @@ import java.util.ArrayList;
 public class MatchController
 {
     @Resource
-    MatchesFacade matchesFacade;
+    private MatchesFacade matchesFacade;
+
+    @Resource
+    private DatabaseConnectorService databaseConnectorService;
 
     @RequestMapping("/matches")
     public String getMatchesForUser(@RequestParam String username)
@@ -29,5 +33,10 @@ public class MatchController
     @RequestMapping("/match")
     public String getMatchById(@RequestParam String matchId){
         return matchesFacade.getMatchById(matchId);
+    }
+
+    @RequestMapping("/matchDB")
+    public void getDB(){
+        databaseConnectorService.connect();
     }
 }

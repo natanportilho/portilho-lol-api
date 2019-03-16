@@ -68,4 +68,17 @@ public class LolMatchesFacade implements MatchesFacade
     {
         return matchService.getMatchById(matchId);
     }
+
+    @Override
+    public String getAllMatchUpsForUser(String username)
+    {
+        UserModel player = userService.getUserModelByName(username);
+        ArrayList<MatchModel> matches = getUserMatchHistory(username);
+        String champions = "";
+
+        for (MatchModel match : matches){
+            champions += match.getChampion() + " ";
+        }
+        return champions;
+    }
 }

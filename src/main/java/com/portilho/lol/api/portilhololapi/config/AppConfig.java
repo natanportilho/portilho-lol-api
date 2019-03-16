@@ -4,6 +4,8 @@ import com.portilho.lol.api.portilhololapi.converter.ChampionConverter;
 import com.portilho.lol.api.portilhololapi.converter.MatchConverter;
 import com.portilho.lol.api.portilhololapi.converter.ModelConverter;
 import com.portilho.lol.api.portilhololapi.converter.UserConverter;
+import com.portilho.lol.api.portilhololapi.database.DatabaseConnectorService;
+import com.portilho.lol.api.portilhololapi.database.MySqlDatabaseConnectorService;
 import com.portilho.lol.api.portilhololapi.facade.LolMatchesFacade;
 import com.portilho.lol.api.portilhololapi.facade.MatchesFacade;
 import com.portilho.lol.api.portilhololapi.service.champion.ChampionService;
@@ -58,5 +60,10 @@ public class AppConfig
     @Bean
     public ModelConverter matchConverter() {
         return new MatchConverter();
+    }
+
+    @Bean
+    public DatabaseConnectorService databaseConnectorService() {
+        return new MySqlDatabaseConnectorService();
     }
 }
