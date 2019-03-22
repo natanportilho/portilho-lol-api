@@ -18,13 +18,13 @@ import java.util.ArrayList;
 public class LolMatchesFacade implements MatchesFacade
 {
     @Resource
-    UserService userService;
+    private UserService userService;
     @Resource
-    MatchService matchService;
+    private MatchService matchService;
     @Resource
-    ModelConverter userConverter;
+    private ModelConverter userConverter;
     @Resource
-    ModelConverter matchConverter;
+    private ModelConverter matchConverter;
 
     @Override
     public String getPlayedMatchesForUser(String username)

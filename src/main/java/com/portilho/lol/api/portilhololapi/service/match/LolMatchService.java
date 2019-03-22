@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 public class LolMatchService implements MatchService
 {
     @Resource
-    ConnectionService connectionService;
+    private ConnectionService connectionService;
 
     @Override
     public String getMatchesForUser(String accountId)
