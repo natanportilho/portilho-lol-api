@@ -1,6 +1,7 @@
 package com.portilho.lol.api.portilhololapi.service.connection;
 
 import com.portilho.lol.api.portilhololapi.constant.RequestConstants;
+import com.portilho.lol.api.portilhololapi.exception.GetRequestException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,16 +18,21 @@ public class LolConnectionService implements ConnectionService
     {
         try
         {
-            HttpURLConnection con = getHttpURLConnection(url);
-            BufferedReader in = getBufferedReader(con);
-            StringBuilder response = getResponse(in);
-            closeConnection(in);
+            StringBuilder response = sendRequest(url);
             return response.toString();
         } catch (IOException e)
         {
-            e.printStackTrace();
+            throw new GetRequestException("Not able to send get request.");
         }
-        return null;
+    }
+
+    private StringBuilder sendRequest(String url) throws IOException
+    {
+        HttpURLConnection con = getHttpURLConnection(url);
+        BufferedReader in = getBufferedReader(con);
+        StringBuilder response = getResponse(in);
+        closeConnection(in);
+        return response;
     }
 
     private HttpURLConnection getHttpURLConnection(String url) throws IOException
@@ -43,16 +49,15 @@ public class LolConnectionService implements ConnectionService
     {
         String inputLine;
         StringBuilder response = new StringBuilder();
-        while ((inputLine = in.readLine()) != null) {
+        while ((inputLine = in.readLine()) != null)
             response.append(inputLine);
-        }
         return response;
     }
 
     private BufferedReader getBufferedReader(HttpURLConnection con) throws IOException
     {
         return new BufferedReader(
-                    new InputStreamReader(con.getInputStream()));
+                new InputStreamReader(con.getInputStream()));
     }
 
     private void closeConnection(BufferedReader in) throws IOException

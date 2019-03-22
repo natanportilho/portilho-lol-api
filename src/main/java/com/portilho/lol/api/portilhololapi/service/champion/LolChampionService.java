@@ -22,12 +22,12 @@ public class LolChampionService implements ChampionService
     private ModelConverter championConverter;
 
     @Override
-    public List<ChampionModel> getAllChampions()
+    public List getAllChampions()
     {
         try
         {
             JSONObject championsInfo = getChampionsInfo();
-            Iterator<String> keys = championsInfo.keys();
+            Iterator keys = championsInfo.keys();
             return createChampions(championsInfo, keys);
 
         } catch (JSONException e)
@@ -45,18 +45,22 @@ public class LolChampionService implements ChampionService
     private ArrayList<ChampionModel> createChampions(JSONObject championsInfo, Iterator<String> keys) throws JSONException
     {
         ArrayList<ChampionModel> champions = new ArrayList<>();
-        while(keys.hasNext()) {
-            String key = keys.next();
-            if (championsInfo.get(key) instanceof JSONObject) {
-                champions.add(createChampion((JSONObject) championsInfo.get(key)));
-            }
-        }
+        while (keys.hasNext())
+            createChampionFromForKey(championsInfo, keys, champions);
         return champions;
+    }
+
+    private void createChampionFromForKey(JSONObject championsInfo, Iterator<String> keys, ArrayList<ChampionModel> champions) throws JSONException
+    {
+        String key = keys.next();
+        if (championsInfo.get(key) instanceof JSONObject)
+        {
+            champions.add(createChampion((JSONObject) championsInfo.get(key)));
+        }
     }
 
     private ChampionModel createChampion(JSONObject championAsJSON)
     {
-        ChampionModel champion = (ChampionModel) championConverter.convert(championAsJSON);
-        return champion;
+        return (ChampionModel) championConverter.convert(championAsJSON);
     }
 }
