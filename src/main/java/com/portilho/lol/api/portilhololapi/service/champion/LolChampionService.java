@@ -32,7 +32,7 @@ public class LolChampionService implements ChampionService
 
         } catch (JSONException e)
         {
-            throw new ChampionException("Not ableto create champions.");
+            throw new ChampionException("Not able create champions.");
         }
     }
 
