@@ -1,22 +1,33 @@
 package com.portilho.lol.api.portilhololapi.model.match;
 
-import com.portilho.lol.api.portilhololapi.model.ChampionModel;
+import com.portilho.lol.api.portilhololapi.model.ParticipantModel;
 
 import java.util.List;
 
 public class TeamModel
 {
-    private List<ChampionModel> champions;
+    private String teamId;
+    private List<ParticipantModel> participants;
     private boolean isWinner;
 
-    public List<ChampionModel> getChampions()
+    public String getTeamId()
     {
-        return champions;
+        return teamId;
     }
 
-    public void setChampions(List<ChampionModel> champions)
+    public void setTeamId(String teamId)
     {
-        this.champions = champions;
+        this.teamId = teamId;
+    }
+
+    public List<ParticipantModel> getParticipants()
+    {
+        return participants;
+    }
+
+    public void setParticipants(List<ParticipantModel> participants)
+    {
+        this.participants = participants;
     }
 
     public boolean isWinner()

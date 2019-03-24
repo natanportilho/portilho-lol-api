@@ -5,7 +5,7 @@ import java.util.List;
 public class MatchModel
 {
     private String matchId;
-    private String champion;
+    private String gameMode;
     private List<TeamModel> teams;
 
     public String getMatchId()
@@ -18,14 +18,14 @@ public class MatchModel
         this.matchId = matchId;
     }
 
-    public String getChampion()
+    public String getGameMode()
     {
-        return champion;
+        return gameMode;
     }
 
-    public void setChampion(String champion)
+    public void setGameMode(String gameMode)
     {
-        this.champion = champion;
+        this.gameMode = gameMode;
     }
 
     public List<TeamModel> getTeams()

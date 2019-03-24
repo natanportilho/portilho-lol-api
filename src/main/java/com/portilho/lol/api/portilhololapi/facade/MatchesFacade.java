@@ -10,7 +10,7 @@ public interface MatchesFacade
 
     ArrayList<MatchModel> getUserMatchHistory(String username);
 
-    String getMatchById(String matchId);
+    MatchModel getMatchById(String matchId);
 
     String getAllMatchUpsForUser(String username);
 }

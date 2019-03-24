@@ -26,17 +26,20 @@ public class MatchController
     }
 
     @RequestMapping("/matchHistory")
-    public ArrayList<MatchModel> getUserMatchHistory(@RequestParam String username){
+    public ArrayList<MatchModel> getUserMatchHistory(@RequestParam String username)
+    {
         return matchesFacade.getUserMatchHistory(username);
     }
 
     @RequestMapping("/match")
-    public String getMatchById(@RequestParam String matchId){
+    public MatchModel getMatchById(@RequestParam String matchId)
+    {
         return matchesFacade.getMatchById(matchId);
     }
 
     @RequestMapping("/matchDB")
-    public void getDB(){
+    public void getDB()
+    {
         databaseConnectorService.connect();
     }
 }
