@@ -1,7 +1,7 @@
 package com.portilho.lol.api.portilhololapi.controller.match;
 
 import com.portilho.lol.api.portilhololapi.database.DatabaseConnectorService;
-import com.portilho.lol.api.portilhololapi.facade.MatchesFacade;
+import com.portilho.lol.api.portilhololapi.facade.matches.MatchesFacade;
 import com.portilho.lol.api.portilhololapi.model.match.MatchModel;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

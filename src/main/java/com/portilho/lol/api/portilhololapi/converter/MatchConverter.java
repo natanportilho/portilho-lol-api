@@ -13,14 +13,24 @@ import java.util.stream.Collectors;
 
 public class MatchConverter implements ModelConverter
 {
+    private static final String PARTICIPANTS = "participants";
+    private static final String GAME_ID = "gameId";
+    private static final String GAME_MODE = "gameMode";
+    private static final String TEAM_ID = "teamId";
+    private static final String TIMELINE = "timeline";
+    private static final String ROLE = "role";
+    private static final String CHAMPION_ID = "championId";
+    private static final String TEAMS = "teams";
+    private static final String WIN = "win";
+
     @Override
     public Object convert(JSONObject source)
     {
         MatchModel match = new MatchModel();
         try
         {
-            match.setMatchId(source.getString("gameId"));
-            match.setGameMode(source.getString("gameMode"));
+            match.setMatchId(source.getString(GAME_ID));
+            match.setGameMode(source.getString(GAME_MODE));
             ArrayList<ParticipantModel> participants = createRolesForTeams(source);
             match.setTeams(createTeamsForParticipants(participants, source));
             return match;
@@ -33,12 +43,12 @@ public class MatchConverter implements ModelConverter
     private ArrayList<ParticipantModel> createRolesForTeams(JSONObject source) throws JSONException
     {
         ArrayList<ParticipantModel> participants = new ArrayList<>();
-        for (int i = 0; i < source.getJSONArray("participants").length(); i++)
+        for (int i = 0; i < source.getJSONArray(PARTICIPANTS).length(); i++)
         {
             ParticipantModel participant = new ParticipantModel();
-            participant.setTeamId(source.getJSONArray("participants").getJSONObject(i).get("teamId").toString());
-            participant.setRole(source.getJSONArray("participants").getJSONObject(i).getJSONObject("timeline").get("role").toString());
-            participant.setChampion(source.getJSONArray("participants").getJSONObject(i).get("championId").toString());
+            participant.setTeamId(source.getJSONArray(PARTICIPANTS).getJSONObject(i).get(TEAM_ID).toString());
+            participant.setRole(source.getJSONArray(PARTICIPANTS).getJSONObject(i).getJSONObject(TIMELINE).get(ROLE).toString());
+            participant.setChampion(source.getJSONArray(PARTICIPANTS).getJSONObject(i).get(CHAMPION_ID).toString());
             participants.add(participant);
         }
         return participants;
@@ -65,8 +75,8 @@ public class MatchConverter implements ModelConverter
 
     private TeamModel createTeamFromJson(JSONObject source, int i) throws JSONException
     {
-        return createTeam(source.getJSONArray("teams").getJSONObject(i).get("teamId").toString(),
-                isWinnerTeam(source.getJSONArray("teams").getJSONObject(i).get("win").toString()));
+        return createTeam(source.getJSONArray(TEAMS).getJSONObject(i).get(TEAM_ID).toString(),
+                isWinnerTeam(source.getJSONArray(TEAMS).getJSONObject(i).get(WIN).toString()));
     }
 
     private List<ParticipantModel> getParticipantsForTeam(ArrayList<ParticipantModel> participants, TeamModel team)
@@ -85,6 +95,6 @@ public class MatchConverter implements ModelConverter
 
     private boolean isWinnerTeam(String win)
     {
-        return win.equals("Win");
+        return win.equals(WIN);
     }
 }

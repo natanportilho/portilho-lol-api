@@ -1,4 +1,4 @@
-package com.portilho.lol.api.portilhololapi.facade;
+package com.portilho.lol.api.portilhololapi.facade.matches;
 
 import com.portilho.lol.api.portilhololapi.model.match.MatchModel;
 
@@ -11,6 +11,4 @@ public interface MatchesFacade
     ArrayList<MatchModel> getUserMatchHistory(String username);
 
     MatchModel getMatchById(String matchId);
-
-    String getAllMatchUpsForUser(String username);
 }

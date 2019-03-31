@@ -1,4 +1,4 @@
-package com.portilho.lol.api.portilhololapi.facade;
+package com.portilho.lol.api.portilhololapi.facade.matches;
 
 import com.portilho.lol.api.portilhololapi.converter.ModelConverter;
 import com.portilho.lol.api.portilhololapi.exception.MatchException;
@@ -73,19 +73,5 @@ public class LolMatchesFacade implements MatchesFacade
         {
             throw new MatchException("Not able to get match.");
         }
-    }
-
-    @Override
-    public String getAllMatchUpsForUser(String username)
-    {
-//        UserModel player = userService.getUserModelByName(username);
-//        ArrayList<MatchModel> matches = getUserMatchHistory(username);
-//        String champions = "";
-//
-//        for (MatchModel match : matches){
-//            champions += match.getChampion() + " ";
-//        }
-//        return champions;
-        return null;
     }
 }
