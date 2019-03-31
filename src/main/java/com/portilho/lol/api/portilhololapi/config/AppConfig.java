@@ -5,7 +5,10 @@ import com.portilho.lol.api.portilhololapi.converter.MatchConverter;
 import com.portilho.lol.api.portilhololapi.converter.ModelConverter;
 import com.portilho.lol.api.portilhololapi.converter.UserConverter;
 import com.portilho.lol.api.portilhololapi.database.DatabaseConnectorService;
+import com.portilho.lol.api.portilhololapi.database.InMemoryDataBase;
 import com.portilho.lol.api.portilhololapi.database.MySqlDatabaseConnectorService;
+import com.portilho.lol.api.portilhololapi.facade.machinelearningmodel.LolMachineLearningModelCreatorFacade;
+import com.portilho.lol.api.portilhololapi.facade.machinelearningmodel.MachineLearningModelCreatorFacade;
 import com.portilho.lol.api.portilhololapi.facade.matches.LolMatchesFacade;
 import com.portilho.lol.api.portilhololapi.facade.matches.MatchesFacade;
 import com.portilho.lol.api.portilhololapi.service.champion.ChampionService;
@@ -65,5 +68,15 @@ public class AppConfig
     @Bean
     public DatabaseConnectorService databaseConnectorService() {
         return new MySqlDatabaseConnectorService();
+    }
+
+    @Bean
+    public MachineLearningModelCreatorFacade machineLearningModelCreatorFacade() {
+        return new LolMachineLearningModelCreatorFacade();
+    }
+
+    @Bean
+    public InMemoryDataBase inMemoryDataBase() {
+        return new InMemoryDataBase();
     }
 }
