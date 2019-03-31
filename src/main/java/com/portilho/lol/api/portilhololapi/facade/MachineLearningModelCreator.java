@@ -1,5 +1,6 @@
 package com.portilho.lol.api.portilhololapi.facade;
 
-public class MachineLearningModelCreator
+public interface MachineLearningModelCreator
 {
+    void createModelFromUserZero(String accountId);
 }
