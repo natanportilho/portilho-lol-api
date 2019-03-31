@@ -1,10 +1,10 @@
-package com.portilho.lol.api.portilhololapi.facade;
+package com.portilho.lol.api.portilhololapi.facade.machinelearningmodel;
 
 import com.portilho.lol.api.portilhololapi.service.match.MatchService;
 
 import javax.annotation.Resource;
 
-public class LolMachineLearningModelCreator implements MachineLearningModelCreator
+public class LolMachineLearningModelCreatorFacade implements MachineLearningModelCreatorFacade
 {
     @Resource
     private MatchService matchService;
@@ -12,7 +12,6 @@ public class LolMachineLearningModelCreator implements MachineLearningModelCreat
     @Override
     public void createModelFromUserZero(String accountId)
     {
-//        matchService.getMatchesForUser()
-
+//        matchService.getMatchesIdsForAccount(accountId);
     }
 }

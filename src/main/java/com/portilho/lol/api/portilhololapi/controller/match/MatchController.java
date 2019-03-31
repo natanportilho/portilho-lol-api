@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
 public class MatchController
@@ -34,5 +35,11 @@ public class MatchController
     public void getDB()
     {
         databaseConnectorService.connect();
+    }
+
+    @RequestMapping("/matchesIds")
+    public List<String> getMatchesIdsForAccount(@RequestParam String accountId)
+    {
+        return matchesFacade.getMatchesIdsForAccount(accountId);
     }
 }
