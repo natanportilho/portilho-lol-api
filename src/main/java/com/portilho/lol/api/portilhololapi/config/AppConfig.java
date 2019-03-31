@@ -1,9 +1,6 @@
 package com.portilho.lol.api.portilhololapi.config;
 
-import com.portilho.lol.api.portilhololapi.converter.ChampionConverter;
-import com.portilho.lol.api.portilhololapi.converter.MatchConverter;
-import com.portilho.lol.api.portilhololapi.converter.ModelConverter;
-import com.portilho.lol.api.portilhololapi.converter.UserConverter;
+import com.portilho.lol.api.portilhololapi.converter.*;
 import com.portilho.lol.api.portilhololapi.database.DatabaseConnectorService;
 import com.portilho.lol.api.portilhololapi.database.InMemoryDataBase;
 import com.portilho.lol.api.portilhololapi.database.MySqlDatabaseConnectorService;
@@ -58,6 +55,11 @@ public class AppConfig
     @Bean
     public ChampionService championService() {
         return new LolChampionService();
+    }
+
+    @Bean
+    public MachineLearningModelLineConverter machineLearningModelLineConverter() {
+        return new MachineLearningModelLineConverter();
     }
 
     @Bean

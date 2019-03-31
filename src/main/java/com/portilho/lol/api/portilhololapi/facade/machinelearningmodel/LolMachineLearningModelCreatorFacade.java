@@ -1,10 +1,12 @@
 package com.portilho.lol.api.portilhololapi.facade.machinelearningmodel;
 
 import com.google.common.util.concurrent.RateLimiter;
+import com.portilho.lol.api.portilhololapi.converter.MachineLearningModelLineConverter;
 import com.portilho.lol.api.portilhololapi.converter.MatchConverter;
 import com.portilho.lol.api.portilhololapi.database.InMemoryDataBase;
 import com.portilho.lol.api.portilhololapi.exception.GetRequestException;
 import com.portilho.lol.api.portilhololapi.exception.MachineLearningModelException;
+import com.portilho.lol.api.portilhololapi.model.MachineLearningLineModel;
 import com.portilho.lol.api.portilhololapi.model.match.MatchModel;
 import com.portilho.lol.api.portilhololapi.service.match.MatchService;
 import org.json.JSONException;
@@ -28,6 +30,8 @@ public class LolMachineLearningModelCreatorFacade implements MachineLearningMode
     private MatchConverter matchConverter;
     @Resource
     private InMemoryDataBase inMemoryDataBase;
+    @Resource
+    private MachineLearningModelLineConverter machineLearningModelLineConverter;
 
     @Override
     public void createModelFromUserZero(String accountId)
@@ -35,7 +39,7 @@ public class LolMachineLearningModelCreatorFacade implements MachineLearningMode
         try
         {
             addUserMatchesIntoDatabase(accountId);
-
+            createCsvModelFromDatabase(InMemoryDataBase.getDatabase());
         } catch (JSONException e)
         {
             throw new GetRequestException("Too many requests.");
@@ -52,10 +56,9 @@ public class LolMachineLearningModelCreatorFacade implements MachineLearningMode
             MatchModel match = (MatchModel) matchConverter.convert(new JSONObject(matchService.getMatchById(matchId)));
             inMemoryDataBase.addMatch(match);
         }
-        createCsvModel(inMemoryDataBase.getDatabase());
     }
 
-    private void createCsvModel(Map<String, MatchModel> database)
+    private void createCsvModelFromDatabase(Map<String, MatchModel> database)
     {
         String targetFileName = "lol-model.csv";
         ArrayList<String> lines = createLines(database);
@@ -65,14 +68,22 @@ public class LolMachineLearningModelCreatorFacade implements MachineLearningMode
     private ArrayList<String> createLines(Map<String, MatchModel> database)
     {
         ArrayList<String> lines = new ArrayList<>();
-
         for (Map.Entry<String, MatchModel> entry : database.entrySet())
         {
-            MatchModel match = entry.getValue();
-            String line = match.getMatchId();
-            lines.add(line);
+            createNewLine(lines, entry);
         }
         return lines;
+    }
+
+    private void createNewLine(ArrayList<String> lines, Map.Entry<String, MatchModel> entry)
+    {
+        MatchModel match = entry.getValue();
+        MachineLearningLineModel lineInfo = (MachineLearningLineModel) machineLearningModelLineConverter.convert(match);
+        String line = lineInfo.getMatchId() + "," + lineInfo.getTeamAAdc() + "," + lineInfo.getTeamASupport() + "," +
+                lineInfo.getTeamAMid() + "," + lineInfo.getTeamAJungle() + "," + lineInfo.getTeamATop() + "," +
+                lineInfo.getTeamBAdc() + "," + lineInfo.getTeamBSupport() + "," + lineInfo.getTeamBMid() + "," +
+                lineInfo.getTeamBJungle() + "," + lineInfo.getTeamBTop() + "," + lineInfo.getWinnerTeam();
+        lines.add(line);
     }
 
     private void writeCsvModel(String targetFileName, List<String> lines)

@@ -18,14 +18,16 @@ public class MatchConverter implements ModelConverter
     private static final String GAME_MODE = "gameMode";
     private static final String TEAM_ID = "teamId";
     private static final String TIMELINE = "timeline";
+    private static final String LANE = "lane";
     private static final String ROLE = "role";
     private static final String CHAMPION_ID = "championId";
     private static final String TEAMS = "teams";
     private static final String WIN = "win";
 
     @Override
-    public Object convert(JSONObject source)
+    public Object convert(Object obj)
     {
+        JSONObject source = (JSONObject) obj;
         MatchModel match = new MatchModel();
         try
         {
@@ -47,6 +49,7 @@ public class MatchConverter implements ModelConverter
         {
             ParticipantModel participant = new ParticipantModel();
             participant.setTeamId(source.getJSONArray(PARTICIPANTS).getJSONObject(i).get(TEAM_ID).toString());
+            participant.setLane(source.getJSONArray(PARTICIPANTS).getJSONObject(i).getJSONObject(TIMELINE).get(LANE).toString());
             participant.setRole(source.getJSONArray(PARTICIPANTS).getJSONObject(i).getJSONObject(TIMELINE).get(ROLE).toString());
             participant.setChampion(source.getJSONArray(PARTICIPANTS).getJSONObject(i).get(CHAMPION_ID).toString());
             participants.add(participant);

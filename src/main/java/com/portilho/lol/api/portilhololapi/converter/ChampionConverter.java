@@ -8,8 +8,9 @@ import org.json.JSONObject;
 public class ChampionConverter implements ModelConverter
 {
     @Override
-    public Object convert(JSONObject source)
+    public Object convert(Object obj)
     {
+        JSONObject source = (JSONObject) obj;
         ChampionModel champion = new ChampionModel();
         try
         {

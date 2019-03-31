@@ -3,6 +3,7 @@ package com.portilho.lol.api.portilhololapi.model;
 public class ParticipantModel
 {
     private String teamId;
+    private String lane;
     private String role;
     private String champion;
 
@@ -16,14 +17,14 @@ public class ParticipantModel
         this.teamId = teamId;
     }
 
-    public String getRole()
+    public String getLane()
     {
-        return role;
+        return lane;
     }
 
-    public void setRole(String role)
+    public void setLane(String lane)
     {
-        this.role = role;
+        this.lane = lane;
     }
 
     public String getChampion()
@@ -34,5 +35,15 @@ public class ParticipantModel
     public void setChampion(String champion)
     {
         this.champion = champion;
+    }
+
+    public String getRole()
+    {
+        return role;
+    }
+
+    public void setRole(String role)
+    {
+        this.role = role;
     }
 }
