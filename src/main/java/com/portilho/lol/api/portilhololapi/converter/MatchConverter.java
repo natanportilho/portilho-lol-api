@@ -98,6 +98,6 @@ public class MatchConverter implements ModelConverter
 
     private boolean isWinnerTeam(String win)
     {
-        return win.equals(WIN);
+        return win.equalsIgnoreCase(WIN);
     }
 }

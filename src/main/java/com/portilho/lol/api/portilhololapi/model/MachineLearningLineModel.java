@@ -3,16 +3,16 @@ package com.portilho.lol.api.portilhololapi.model;
 public class MachineLearningLineModel
 {
     private String matchId;
-    private String teamAAdc;
-    private String teamASupport;
-    private String teamAMid;
-    private String teamAJungle;
-    private String teamATop;
-    private String teamBAdc;
-    private String teamBSupport;
-    private String teamBMid;
-    private String teamBJungle;
-    private String teamBTop;
+    private String teamAPlayer1;
+    private String teamAPlayer2;
+    private String teamAPlayer3;
+    private String teamAPlayer4;
+    private String teamAPlayer5;
+    private String teamBPlayer1;
+    private String teamBPlayer2;
+    private String teamBPlayer3;
+    private String teamBPlayer4;
+    private String teamBPlayer5;
     private String winnerTeam;
 
     public String getMatchId()
@@ -25,104 +25,104 @@ public class MachineLearningLineModel
         this.matchId = matchId;
     }
 
-    public String getTeamAAdc()
+    public String getTeamAPlayer1()
     {
-        return teamAAdc;
+        return teamAPlayer1;
     }
 
-    public void setTeamAAdc(String teamAAdc)
+    public void setTeamAPlayer1(String teamAPlayer1)
     {
-        this.teamAAdc = teamAAdc;
+        this.teamAPlayer1 = teamAPlayer1;
     }
 
-    public String getTeamASupport()
+    public String getTeamAPlayer2()
     {
-        return teamASupport;
+        return teamAPlayer2;
     }
 
-    public void setTeamASupport(String teamASupport)
+    public void setTeamAPlayer2(String teamAPlayer2)
     {
-        this.teamASupport = teamASupport;
+        this.teamAPlayer2 = teamAPlayer2;
     }
 
-    public String getTeamAMid()
+    public String getTeamAPlayer3()
     {
-        return teamAMid;
+        return teamAPlayer3;
     }
 
-    public void setTeamAMid(String teamAMid)
+    public void setTeamAPlayer3(String teamAPlayer3)
     {
-        this.teamAMid = teamAMid;
+        this.teamAPlayer3 = teamAPlayer3;
     }
 
-    public String getTeamAJungle()
+    public String getTeamAPlayer4()
     {
-        return teamAJungle;
+        return teamAPlayer4;
     }
 
-    public void setTeamAJungle(String teamAJungle)
+    public void setTeamAPlayer4(String teamAPlayer4)
     {
-        this.teamAJungle = teamAJungle;
+        this.teamAPlayer4 = teamAPlayer4;
     }
 
-    public String getTeamATop()
+    public String getTeamAPlayer5()
     {
-        return teamATop;
+        return teamAPlayer5;
     }
 
-    public void setTeamATop(String teamATop)
+    public void setTeamAPlayer5(String teamAPlayer5)
     {
-        this.teamATop = teamATop;
+        this.teamAPlayer5 = teamAPlayer5;
     }
 
-    public String getTeamBAdc()
+    public String getTeamBPlayer1()
     {
-        return teamBAdc;
+        return teamBPlayer1;
     }
 
-    public void setTeamBAdc(String teamBAdc)
+    public void setTeamBPlayer1(String teamBPlayer1)
     {
-        this.teamBAdc = teamBAdc;
+        this.teamBPlayer1 = teamBPlayer1;
     }
 
-    public String getTeamBSupport()
+    public String getTeamBPlayer2()
     {
-        return teamBSupport;
+        return teamBPlayer2;
     }
 
-    public void setTeamBSupport(String teamBSupport)
+    public void setTeamBPlayer2(String teamBPlayer2)
     {
-        this.teamBSupport = teamBSupport;
+        this.teamBPlayer2 = teamBPlayer2;
     }
 
-    public String getTeamBMid()
+    public String getTeamBPlayer3()
     {
-        return teamBMid;
+        return teamBPlayer3;
     }
 
-    public void setTeamBMid(String teamBMid)
+    public void setTeamBPlayer3(String teamBPlayer3)
     {
-        this.teamBMid = teamBMid;
+        this.teamBPlayer3 = teamBPlayer3;
     }
 
-    public String getTeamBJungle()
+    public String getTeamBPlayer4()
     {
-        return teamBJungle;
+        return teamBPlayer4;
     }
 
-    public void setTeamBJungle(String teamBJungle)
+    public void setTeamBPlayer4(String teamBPlayer4)
     {
-        this.teamBJungle = teamBJungle;
+        this.teamBPlayer4 = teamBPlayer4;
     }
 
-    public String getTeamBTop()
+    public String getTeamBPlayer5()
     {
-        return teamBTop;
+        return teamBPlayer5;
     }
 
-    public void setTeamBTop(String teamBTop)
+    public void setTeamBPlayer5(String teamBPlayer5)
     {
-        this.teamBTop = teamBTop;
+        this.teamBPlayer5 = teamBPlayer5;
     }
 
     public String getWinnerTeam()

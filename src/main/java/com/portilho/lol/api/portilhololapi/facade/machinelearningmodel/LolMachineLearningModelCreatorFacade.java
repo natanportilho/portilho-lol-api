@@ -69,9 +69,7 @@ public class LolMachineLearningModelCreatorFacade implements MachineLearningMode
     {
         ArrayList<String> lines = new ArrayList<>();
         for (Map.Entry<String, MatchModel> entry : database.entrySet())
-        {
             createNewLine(lines, entry);
-        }
         return lines;
     }
 
@@ -79,10 +77,10 @@ public class LolMachineLearningModelCreatorFacade implements MachineLearningMode
     {
         MatchModel match = entry.getValue();
         MachineLearningLineModel lineInfo = (MachineLearningLineModel) machineLearningModelLineConverter.convert(match);
-        String line = lineInfo.getMatchId() + "," + lineInfo.getTeamAAdc() + "," + lineInfo.getTeamASupport() + "," +
-                lineInfo.getTeamAMid() + "," + lineInfo.getTeamAJungle() + "," + lineInfo.getTeamATop() + "," +
-                lineInfo.getTeamBAdc() + "," + lineInfo.getTeamBSupport() + "," + lineInfo.getTeamBMid() + "," +
-                lineInfo.getTeamBJungle() + "," + lineInfo.getTeamBTop() + "," + lineInfo.getWinnerTeam();
+        String line = lineInfo.getMatchId() + "," + lineInfo.getTeamAPlayer1() + "," + lineInfo.getTeamAPlayer2() + "," +
+                lineInfo.getTeamAPlayer3() + "," + lineInfo.getTeamAPlayer4() + "," + lineInfo.getTeamAPlayer5() + "," +
+                lineInfo.getTeamBPlayer1() + "," + lineInfo.getTeamBPlayer2() + "," + lineInfo.getTeamBPlayer3() + "," +
+                lineInfo.getTeamBPlayer4() + "," + lineInfo.getTeamBPlayer5() + "," + lineInfo.getWinnerTeam();
         lines.add(line);
     }
 

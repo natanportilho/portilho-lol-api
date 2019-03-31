@@ -1,8 +1,10 @@
 package com.portilho.lol.api.portilhololapi.converter;
 
+import com.portilho.lol.api.portilhololapi.exception.MachineLearningModelException;
 import com.portilho.lol.api.portilhololapi.model.MachineLearningLineModel;
 import com.portilho.lol.api.portilhololapi.model.ParticipantModel;
 import com.portilho.lol.api.portilhololapi.model.match.MatchModel;
+import com.portilho.lol.api.portilhololapi.model.match.TeamModel;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -10,67 +12,61 @@ import java.util.Optional;
 public class MachineLearningModelLineConverter implements ModelConverter
 {
     @Override
-    public Object convert(Object obj)
+    public Object convert(Object source)
     {
-        MatchModel source = (MatchModel) obj;
+        MatchModel match = (MatchModel) source;
         MachineLearningLineModel machineLearningLineModel = new MachineLearningLineModel();
+        machineLearningLineModel.setMatchId(match.getMatchId());
 
-        machineLearningLineModel.setMatchId(source.getMatchId());
+        ArrayList<ParticipantModel> participantsTeamA = getParticipantsForTeam(match, "100");
+        ArrayList<ParticipantModel> participantsTeamB = getParticipantsForTeam(match, "200");
+        setTeamRoles(participantsTeamA, machineLearningLineModel, "100");
+        setTeamRoles(participantsTeamB, machineLearningLineModel, "200");
 
-        ArrayList<ParticipantModel> participantsTeamA = (ArrayList<ParticipantModel>) source.getTeams().get(0).getParticipants();
-        ArrayList<ParticipantModel> participantsTeamB = (ArrayList<ParticipantModel>) source.getTeams().get(1).getParticipants();
-
-        setTeamRoles(participantsTeamA, machineLearningLineModel, "A");
-        setTeamRoles(participantsTeamB, machineLearningLineModel, "B");
-
-
-//        match_id,team_a_adc,team_a_support,team_a_mid,team_a_jungle,team_a_top,team_b_adc,team_b_support,team_b_mid,team_b_jungle,team_b_top,winner_team
-//        MID, MIDDLE, TOP, JUNGLE, BOT, BOTTOM)
+        setWinnerTeam(match, machineLearningLineModel);
         return machineLearningLineModel;
-
     }
 
-    private void setTeamRoles(ArrayList<ParticipantModel> participantsTeam, MachineLearningLineModel machineLearningLineModel, String teamName)
+    private ArrayList<ParticipantModel> getParticipantsForTeam(MatchModel source, String s)
     {
-        ParticipantModel teamAdc = getTeamParticipant(participantsTeam, "DUO_CARRY", "BOTTOM");
-        ParticipantModel teamSupport = getTeamParticipant(participantsTeam, "DUO_SUPPORT", "BOTTOM");
-        ParticipantModel teamMid = getTeamParticipant(participantsTeam, "MID", "NONE");
-        ParticipantModel teamJungle = getTeamParticipant(participantsTeam, "JUNGLE", "NONE");
-        ParticipantModel teamTop = getTeamParticipant(participantsTeam, "TOP", "NONE");
+        Optional<TeamModel> team = source.getTeams().stream().filter(teamModel -> teamModel.getTeamId().equals(s)).findFirst();
+        if (team.isPresent())
+            return (ArrayList<ParticipantModel>) team.get().getParticipants();
+        else
+            throw new MachineLearningModelException("Not able to get team participants.");
+    }
 
-        if (teamName.equals("A")){
-            machineLearningLineModel.setTeamAAdc(teamAdc.getChampion());
-            machineLearningLineModel.setTeamASupport(teamSupport.getChampion());
-            machineLearningLineModel.setTeamAMid(teamMid.getChampion());
-            machineLearningLineModel.setTeamAJungle(teamJungle.getChampion());
-            machineLearningLineModel.setTeamATop(teamTop.getChampion());
-        }else {
-            machineLearningLineModel.setTeamBAdc(teamAdc.getChampion());
-            machineLearningLineModel.setTeamBSupport(teamSupport.getChampion());
-            machineLearningLineModel.setTeamBMid(teamMid.getChampion());
-            machineLearningLineModel.setTeamBJungle(teamJungle.getChampion());
-            machineLearningLineModel.setTeamBTop(teamTop.getChampion());
+    private void setWinnerTeam(MatchModel source, MachineLearningLineModel machineLearningLineModel)
+    {
+        if (isWinner(source, 0))
+            machineLearningLineModel.setWinnerTeam(source.getTeams().get(0).getTeamId());
+        else if (isWinner(source, 1))
+            machineLearningLineModel.setWinnerTeam(source.getTeams().get(1).getTeamId());
+        else
+            machineLearningLineModel.setWinnerTeam("no winner");
+    }
+
+    private boolean isWinner(MatchModel source, int index)
+    {
+        return source.getTeams().get(index).isWinner();
+    }
+
+    private void setTeamRoles(ArrayList<ParticipantModel> participantsTeam, MachineLearningLineModel machineLearningLineModel, String teamId)
+    {
+        if (teamId.equals("100"))
+        {
+            machineLearningLineModel.setTeamAPlayer1(participantsTeam.get(0).getChampion());
+            machineLearningLineModel.setTeamAPlayer2(participantsTeam.get(1).getChampion());
+            machineLearningLineModel.setTeamAPlayer3(participantsTeam.get(2).getChampion());
+            machineLearningLineModel.setTeamAPlayer4(participantsTeam.get(3).getChampion());
+            machineLearningLineModel.setTeamAPlayer5(participantsTeam.get(4).getChampion());
+        } else
+        {
+            machineLearningLineModel.setTeamBPlayer1(participantsTeam.get(0).getChampion());
+            machineLearningLineModel.setTeamBPlayer2(participantsTeam.get(1).getChampion());
+            machineLearningLineModel.setTeamBPlayer3(participantsTeam.get(2).getChampion());
+            machineLearningLineModel.setTeamBPlayer4(participantsTeam.get(3).getChampion());
+            machineLearningLineModel.setTeamBPlayer5(participantsTeam.get(4).getChampion());
         }
-    }
-
-    private ParticipantModel getTeamParticipant(ArrayList<ParticipantModel> participantsTeam, String duo_carry, String bottom)
-    {
-        ParticipantModel participant = getTeamParticipantByLane(participantsTeam, duo_carry, bottom).isPresent() ? getTeamParticipantByLane(participantsTeam, duo_carry, bottom).get() : createFakeParticipant();
-        return participant;
-    }
-
-    private Optional<ParticipantModel> getTeamParticipantByLane(ArrayList<ParticipantModel> teamParticipants, String lane, String role){
-        return teamParticipants.stream().filter(participant ->
-                participant.getRole().equals(role)
-                        && participant.getLane().equals(lane)).findFirst();
-    }
-
-    private ParticipantModel createFakeParticipant(){
-        ParticipantModel participantModel = new ParticipantModel();
-        participantModel.setChampion("xxx");
-        participantModel.setRole("xxx");
-        participantModel.setTeamId("xxx");
-        participantModel.setLane("xxx");
-        return participantModel;
     }
 }
