@@ -39,30 +39,6 @@ public class LolMatchesFacade implements MatchesFacade
         }
     }
 
-
-    @Override
-    public ArrayList<MatchModel> getUserMatchHistory(@RequestParam String username)
-    {
-        try
-        {
-            JSONArray matches = new JSONObject(getPlayedMatchesForUser(username)).getJSONArray("matches");
-            return createMatchesHistory(matches);
-        } catch (JSONException e)
-        {
-            throw new MatchException("Not able to get matches history.");
-        }
-    }
-
-    private ArrayList<MatchModel> createMatchesHistory(JSONArray matches) throws JSONException
-    {
-        ArrayList<MatchModel> matchesHistory = new ArrayList<>();
-        for (int i = 0; i < matches.length(); i++)
-        {
-            matchesHistory.add((MatchModel) matchConverter.convert(matches.getJSONObject(i)));
-        }
-        return matchesHistory;
-    }
-
     @Override
     public MatchModel getMatchById(String matchId)
     {
