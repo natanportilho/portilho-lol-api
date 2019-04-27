@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 public class LolChampionService implements ChampionService
 {
@@ -34,6 +35,18 @@ public class LolChampionService implements ChampionService
         {
             throw new ChampionException("Not able create champions.");
         }
+    }
+
+    @Override
+    public String getChampionNameById(String championId)
+    {
+
+        List<ChampionModel> champions = getAllChampions();
+        Optional<ChampionModel> champion = champions.stream().
+                filter(championModel -> championModel.getId().equals(championId)).findFirst();
+        if (champion.isPresent())
+            return champion.get().getName();
+        throw new ChampionException("Not able get champion by id " + championId);
     }
 
     private JSONObject getChampionsInfo() throws JSONException

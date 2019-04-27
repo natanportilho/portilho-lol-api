@@ -34,7 +34,7 @@ public class LolMachineLearningModelCreatorFacade implements MachineLearningMode
     private MachineLearningModelLineConverter machineLearningModelLineConverter;
 
     @Override
-    public void createModelFromUserZero(String accountId)
+    public void createModelFromBaseAccount(String accountId)
     {
         try
         {

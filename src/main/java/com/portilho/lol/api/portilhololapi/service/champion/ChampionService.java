@@ -5,4 +5,6 @@ import java.util.List;
 public interface ChampionService
 {
     List getAllChampions();
+
+    String getChampionNameById(String championId);
 }

@@ -16,7 +16,7 @@ public class MachineLearningModelController
     @RequestMapping("/createModel")
     public String getMatchesForUser(@RequestParam String accountId)
     {
-        machineLearningModelCreatorFacade.createModelFromUserZero(accountId);
+        machineLearningModelCreatorFacade.createModelFromBaseAccount(accountId);
         return "ok";
     }
 }

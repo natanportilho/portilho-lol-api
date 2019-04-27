@@ -16,9 +16,4 @@ public class LolMatchesFacadeTest
     @Resource
     private LolMatchesFacade matchesFacade;
 
-    @Test
-    public void getUserMatchHistoryTest()
-    {
-        Assert.assertNotNull(matchesFacade.getUserMatchHistory("NatanPortilho"));
-    }
 }

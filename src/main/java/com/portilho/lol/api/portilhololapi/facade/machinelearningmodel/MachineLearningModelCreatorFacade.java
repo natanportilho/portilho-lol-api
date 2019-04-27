@@ -2,5 +2,5 @@ package com.portilho.lol.api.portilhololapi.facade.machinelearningmodel;
 
 public interface MachineLearningModelCreatorFacade
 {
-    void createModelFromUserZero(String accountId);
+    void createModelFromBaseAccount(String accountId);
 }
