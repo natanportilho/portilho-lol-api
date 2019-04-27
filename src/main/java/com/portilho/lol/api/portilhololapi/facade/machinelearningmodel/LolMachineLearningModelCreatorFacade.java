@@ -8,6 +8,7 @@ import com.portilho.lol.api.portilhololapi.exception.GetRequestException;
 import com.portilho.lol.api.portilhololapi.exception.MachineLearningModelException;
 import com.portilho.lol.api.portilhololapi.model.MachineLearningLineModel;
 import com.portilho.lol.api.portilhololapi.model.match.MatchModel;
+import com.portilho.lol.api.portilhololapi.service.champion.ChampionService;
 import com.portilho.lol.api.portilhololapi.service.match.MatchService;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +33,8 @@ public class LolMachineLearningModelCreatorFacade implements MachineLearningMode
     private InMemoryDataBase inMemoryDataBase;
     @Resource
     private MachineLearningModelLineConverter machineLearningModelLineConverter;
+    @Resource
+    private ChampionService championService;
 
     @Override
     public void createModelFromBaseAccount(String accountId)
@@ -77,10 +80,17 @@ public class LolMachineLearningModelCreatorFacade implements MachineLearningMode
     {
         MatchModel match = entry.getValue();
         MachineLearningLineModel lineInfo = (MachineLearningLineModel) machineLearningModelLineConverter.convert(match);
-        String line = lineInfo.getMatchId() + "," + lineInfo.getTeamAPlayer1() + "," + lineInfo.getTeamAPlayer2() + "," +
-                lineInfo.getTeamAPlayer3() + "," + lineInfo.getTeamAPlayer4() + "," + lineInfo.getTeamAPlayer5() + "," +
-                lineInfo.getTeamBPlayer1() + "," + lineInfo.getTeamBPlayer2() + "," + lineInfo.getTeamBPlayer3() + "," +
-                lineInfo.getTeamBPlayer4() + "," + lineInfo.getTeamBPlayer5() + "," + lineInfo.getWinnerTeam();
+
+        String line = lineInfo.getMatchId() + "," + getChampionNameById(lineInfo.getTeamAPlayer1()) + "," +
+                getChampionNameById(lineInfo.getTeamAPlayer2()) + "," +
+                getChampionNameById(lineInfo.getTeamAPlayer3()) + "," +
+                getChampionNameById(lineInfo.getTeamAPlayer4()) + "," +
+                getChampionNameById(lineInfo.getTeamAPlayer5()) + "," +
+                getChampionNameById(lineInfo.getTeamBPlayer1()) + "," +
+                getChampionNameById(lineInfo.getTeamBPlayer2()) + "," +
+                getChampionNameById(lineInfo.getTeamBPlayer3()) + "," +
+                getChampionNameById(lineInfo.getTeamBPlayer4()) + "," +
+                getChampionNameById(lineInfo.getTeamBPlayer5()) + "," + lineInfo.getWinnerTeam();
         lines.add(line);
     }
 
@@ -94,5 +104,10 @@ public class LolMachineLearningModelCreatorFacade implements MachineLearningMode
         {
             throw new MachineLearningModelException("Not able to create machine learning model.");
         }
+    }
+
+    private String getChampionNameById(String championId)
+    {
+        return championService.getChampionNameById(championId);
     }
 }
