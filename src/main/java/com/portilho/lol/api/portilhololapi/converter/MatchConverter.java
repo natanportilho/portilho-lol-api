@@ -23,6 +23,10 @@ public class MatchConverter implements ModelConverter
     private static final String CHAMPION_ID = "championId";
     private static final String TEAMS = "teams";
     private static final String WIN = "win";
+    private static final String PARTICIPANT_ID = "participantId";
+    private static final String PARTICIPANT_IDENTITIES = "participantIdentities";
+    private static final String ACCOUNT_ID = "accountId";
+    private static final String PLAYER = "player";
 
     @Override
     public Object convert(Object obj)
@@ -48,10 +52,12 @@ public class MatchConverter implements ModelConverter
         for (int i = 0; i < source.getJSONArray(PARTICIPANTS).length(); i++)
         {
             ParticipantModel participant = new ParticipantModel();
+            participant.setParticipantId(source.getJSONArray(PARTICIPANTS).getJSONObject(i).get(PARTICIPANT_ID).toString());
             participant.setTeamId(source.getJSONArray(PARTICIPANTS).getJSONObject(i).get(TEAM_ID).toString());
             participant.setLane(source.getJSONArray(PARTICIPANTS).getJSONObject(i).getJSONObject(TIMELINE).get(LANE).toString());
             participant.setRole(source.getJSONArray(PARTICIPANTS).getJSONObject(i).getJSONObject(TIMELINE).get(ROLE).toString());
             participant.setChampion(source.getJSONArray(PARTICIPANTS).getJSONObject(i).get(CHAMPION_ID).toString());
+            participant.setAccountId(source.getJSONArray(PARTICIPANT_IDENTITIES).getJSONObject(i).getJSONObject(PLAYER).get(ACCOUNT_ID).toString());
             participants.add(participant);
         }
         return participants;
@@ -100,4 +106,5 @@ public class MatchConverter implements ModelConverter
     {
         return win.equalsIgnoreCase(WIN);
     }
+
 }

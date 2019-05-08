@@ -7,7 +7,9 @@ import com.portilho.lol.api.portilhololapi.database.InMemoryDataBase;
 import com.portilho.lol.api.portilhololapi.exception.GetRequestException;
 import com.portilho.lol.api.portilhololapi.exception.MachineLearningModelException;
 import com.portilho.lol.api.portilhololapi.model.MachineLearningLineModel;
+import com.portilho.lol.api.portilhololapi.model.ParticipantModel;
 import com.portilho.lol.api.portilhololapi.model.match.MatchModel;
+import com.portilho.lol.api.portilhololapi.model.match.TeamModel;
 import com.portilho.lol.api.portilhololapi.service.champion.ChampionService;
 import com.portilho.lol.api.portilhololapi.service.match.MatchService;
 import org.json.JSONException;
@@ -20,6 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -42,10 +45,31 @@ public class LolMachineLearningModelCreatorFacade implements MachineLearningMode
         try
         {
             addUserMatchesIntoDatabase(accountId);
+            addMatchesForOtherUsers();
             createCsvModelFromDatabase(InMemoryDataBase.getDatabase());
         } catch (JSONException e)
         {
             throw new GetRequestException("Too many requests.");
+        }
+    }
+
+    private void addMatchesForOtherUsers() throws JSONException
+    {
+        Map<String, MatchModel> matches = inMemoryDataBase.getMatches();
+        Iterator it = matches.entrySet().iterator();
+        while (it.hasNext() && inMemoryDataBase.getDatabaseSize() <= 200) {
+            Map.Entry pair = (Map.Entry)it.next();
+            MatchModel match = (MatchModel) pair.getValue();
+            it.remove();
+
+            List<TeamModel> teams = match.getTeams();
+
+            for (TeamModel team : teams){
+                List<ParticipantModel> participants = team.getParticipants();
+                for (ParticipantModel participant : participants){
+                    addUserMatchesIntoDatabase(participant.getAccountId());
+                }
+            }
         }
     }
 

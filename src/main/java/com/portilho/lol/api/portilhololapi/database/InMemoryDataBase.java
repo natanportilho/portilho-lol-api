@@ -19,6 +19,10 @@ public class InMemoryDataBase
         return matches.size();
     }
 
+    public Map<String,MatchModel> getMatches(){
+        return matches;
+    }
+
     public static Map<String, MatchModel> getDatabase()
     {
         return matches;

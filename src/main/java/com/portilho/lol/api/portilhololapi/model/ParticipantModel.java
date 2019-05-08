@@ -6,6 +6,8 @@ public class ParticipantModel
     private String lane;
     private String role;
     private String champion;
+    private String accountId;
+    private String participantId;
 
     public String getTeamId()
     {
@@ -45,5 +47,25 @@ public class ParticipantModel
     public void setRole(String role)
     {
         this.role = role;
+    }
+
+    public String getAccountId()
+    {
+        return accountId;
+    }
+
+    public void setAccountId(String account)
+    {
+        this.accountId = account;
+    }
+
+    public void setParticipantId(String participantId)
+    {
+        this.participantId = participantId;
+    }
+
+    public String getParticipantId()
+    {
+        return participantId;
     }
 }
