@@ -1,6 +1,6 @@
 package com.portilho.lol.api.portilhololapi.service.connection;
 
-import com.portilho.lol.api.portilhololapi.constant.RequestConstants;
+import com.portilho.lol.api.portilhololapi.constant.Constant;
 import com.portilho.lol.api.portilhololapi.exception.GetRequestException;
 
 import java.io.BufferedReader;
@@ -39,9 +39,9 @@ public class LolConnectionService implements ConnectionService
     {
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        con.setRequestMethod(RequestConstants.GET);
+        con.setRequestMethod(Constant.Request.GET);
         con.setRequestProperty("User-Agent", USER_AGENT);
-        con.setRequestProperty("X-Riot-Token", RequestConstants.RIOT_TOKEN);
+        con.setRequestProperty("X-Riot-Token", Constant.Request.RIOT_TOKEN);
         return con;
     }
 

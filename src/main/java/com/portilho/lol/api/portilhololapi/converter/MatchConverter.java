@@ -39,11 +39,11 @@ public class MatchConverter implements ModelConverter
             match.setGameMode(source.getString(GAME_MODE));
             ArrayList<ParticipantModel> participants = createRolesForTeams(source);
             match.setTeams(createTeamsForParticipants(participants, source));
-            return match;
         } catch (JSONException e)
         {
             throw new MatchException("Not able to convert into match.");
         }
+        return match;
     }
 
     private ArrayList<ParticipantModel> createRolesForTeams(JSONObject source) throws JSONException

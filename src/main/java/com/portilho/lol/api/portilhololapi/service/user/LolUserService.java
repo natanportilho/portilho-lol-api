@@ -1,6 +1,6 @@
 package com.portilho.lol.api.portilhololapi.service.user;
 
-import com.portilho.lol.api.portilhololapi.constant.RequestConstants;
+import com.portilho.lol.api.portilhololapi.constant.Constant;
 import com.portilho.lol.api.portilhololapi.converter.ModelConverter;
 import com.portilho.lol.api.portilhololapi.exception.UserException;
 import com.portilho.lol.api.portilhololapi.model.user.UserModel;
@@ -22,7 +22,7 @@ public class LolUserService implements UserService
     @Override
     public String getUserByName(String username) throws IOException
     {
-        String url = RequestConstants.SUMMONER_INFO_URL + username;
+        String url = Constant.Request.SUMMONER_INFO_URL + username;
         return connectionService.sendGetRequest(url);
     }
 
@@ -31,7 +31,7 @@ public class LolUserService implements UserService
     {
         try
         {
-            String url = RequestConstants.SUMMONER_INFO_URL + username;
+            String url = Constant.Request.SUMMONER_INFO_URL + username;
             return (UserModel) userConverter.convert(new JSONObject(connectionService.sendGetRequest(url)));
         } catch (JSONException e)
         {

@@ -1,6 +1,5 @@
 package com.portilho.lol.api.portilhololapi.controller.champion;
 
-import com.portilho.lol.api.portilhololapi.model.ChampionModel;
 import com.portilho.lol.api.portilhololapi.service.champion.ChampionService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +15,7 @@ public class ChampionController
     private ChampionService championService;
 
     @RequestMapping("/champions")
-    public List<ChampionModel> getAllChampions(){
+    public List getAllChampions(){
         return championService.getAllChampions();
     }
 

@@ -4,33 +4,22 @@ import java.sql.*;
 
 public class MySqlDatabaseConnectorService implements DatabaseConnectorService
 {
+    private static final String MY_SQL_URL = "jdbc:mysql://localhost/lol_api?user=root&password=hybris";
+
     @Override
     public void connect()
     {
-
-        try
+        try (Connection connect = DriverManager.getConnection(MY_SQL_URL);
+             Statement stmt = connect.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM lol_api.`match`"))
         {
-            Connection connect = DriverManager
-                    .getConnection("jdbc:mysql://localhost/lol_api?"
-                            + "user=root&password=hybris");
-
-
-
-            Statement stmt = connect.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM lol_api.`match`");
-
-            while(rs.next())
+            while (rs.next())
             {
                 System.out.println(rs.getString(1));
             }
-
-            rs.close();
-            stmt.close();
-            connect.close();
-
-        } catch (SQLException e)
+        } catch (Exception exception)
         {
-            e.printStackTrace();
+            exception.printStackTrace();
         }
     }
 }

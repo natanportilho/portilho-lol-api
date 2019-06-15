@@ -1,6 +1,6 @@
 package com.portilho.lol.api.portilhololapi.service.champion;
 
-import com.portilho.lol.api.portilhololapi.constant.RequestConstants;
+import com.portilho.lol.api.portilhololapi.constant.Constant;
 import com.portilho.lol.api.portilhololapi.converter.ModelConverter;
 import com.portilho.lol.api.portilhololapi.exception.ChampionException;
 import com.portilho.lol.api.portilhololapi.model.ChampionModel;
@@ -52,18 +52,18 @@ public class LolChampionService implements ChampionService
     private JSONObject getChampionsInfo() throws JSONException
     {
         return new JSONObject(
-                connectionService.sendGetRequest(RequestConstants.CHAMPIONS_URL)).getJSONObject("data");
+                connectionService.sendGetRequest(Constant.Request.CHAMPIONS_URL)).getJSONObject("data");
     }
 
     private ArrayList<ChampionModel> createChampions(JSONObject championsInfo, Iterator<String> keys) throws JSONException
     {
         ArrayList<ChampionModel> champions = new ArrayList<>();
         while (keys.hasNext())
-            createChampionFromForKey(championsInfo, keys, champions);
+            createChampionForKey(championsInfo, keys, champions);
         return champions;
     }
 
-    private void createChampionFromForKey(JSONObject championsInfo, Iterator<String> keys, ArrayList<ChampionModel> champions) throws JSONException
+    private void createChampionForKey(JSONObject championsInfo, Iterator<String> keys, ArrayList<ChampionModel> champions) throws JSONException
     {
         String key = keys.next();
         if (championsInfo.get(key) instanceof JSONObject)

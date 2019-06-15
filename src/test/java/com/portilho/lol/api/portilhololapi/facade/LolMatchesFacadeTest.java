@@ -15,5 +15,4 @@ public class LolMatchesFacadeTest
 {
     @Resource
     private LolMatchesFacade matchesFacade;
-
 }

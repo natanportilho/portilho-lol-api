@@ -4,7 +4,7 @@ import com.portilho.lol.api.portilhololapi.converter.*;
 import com.portilho.lol.api.portilhololapi.database.DatabaseConnectorService;
 import com.portilho.lol.api.portilhololapi.database.InMemoryDataBase;
 import com.portilho.lol.api.portilhololapi.database.MySqlDatabaseConnectorService;
-import com.portilho.lol.api.portilhololapi.facade.machinelearningmodel.LolMachineLearningModelCreatorFacade;
+import com.portilho.lol.api.portilhololapi.facade.machinelearningmodel.CsvMachineLearningModelCreatorFacade;
 import com.portilho.lol.api.portilhololapi.facade.machinelearningmodel.MachineLearningModelCreatorFacade;
 import com.portilho.lol.api.portilhololapi.facade.matches.LolMatchesFacade;
 import com.portilho.lol.api.portilhololapi.facade.matches.MatchesFacade;
@@ -12,6 +12,7 @@ import com.portilho.lol.api.portilhololapi.service.champion.ChampionService;
 import com.portilho.lol.api.portilhololapi.service.champion.LolChampionService;
 import com.portilho.lol.api.portilhololapi.service.connection.ConnectionService;
 import com.portilho.lol.api.portilhololapi.service.connection.LolConnectionService;
+import com.portilho.lol.api.portilhololapi.service.machinelearning.CsvMachineLearningModelCreatorService;
 import com.portilho.lol.api.portilhololapi.service.match.LolMatchService;
 import com.portilho.lol.api.portilhololapi.service.match.MatchService;
 import com.portilho.lol.api.portilhololapi.service.user.LolUserService;
@@ -74,7 +75,12 @@ public class AppConfig
 
     @Bean
     public MachineLearningModelCreatorFacade machineLearningModelCreatorFacade() {
-        return new LolMachineLearningModelCreatorFacade();
+        return new CsvMachineLearningModelCreatorFacade();
+    }
+
+    @Bean
+    public CsvMachineLearningModelCreatorService csvMachineLearningModelCreatorService(){
+        return new CsvMachineLearningModelCreatorService();
     }
 
     @Bean
