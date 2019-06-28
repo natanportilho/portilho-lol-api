@@ -84,8 +84,9 @@ public class MatchConverter implements ModelConverter
 
     private TeamModel createTeamFromJson(JSONObject source, int i) throws JSONException
     {
-        return createTeam(source.getJSONArray(TEAMS).getJSONObject(i).get(TEAM_ID).toString(),
-                isWinnerTeam(source.getJSONArray(TEAMS).getJSONObject(i).get(WIN).toString()));
+        String teamId = source.getJSONArray(TEAMS).getJSONObject(i).get(TEAM_ID).toString();
+        String win = source.getJSONArray(TEAMS).getJSONObject(i).has(WIN) ? source.getJSONArray(TEAMS).getJSONObject(i).get(WIN).toString() : "loser";
+        return createTeam(teamId, isWinnerTeam(win));
     }
 
     private List<ParticipantModel> getParticipantsForTeam(ArrayList<ParticipantModel> participants, TeamModel team)

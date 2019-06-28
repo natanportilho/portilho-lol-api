@@ -56,8 +56,7 @@ public class LolConnectionService implements ConnectionService
 
     private BufferedReader getBufferedReader(HttpURLConnection con) throws IOException
     {
-        return new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
+        return new BufferedReader(new InputStreamReader(con.getInputStream()));
     }
 
     private void closeConnection(BufferedReader in) throws IOException

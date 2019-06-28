@@ -40,8 +40,7 @@ public class CsvMachineLearningModelCreatorService implements MachineLearningMod
     private ArrayList<String> createLines(Map<String, MatchModel> matches)
     {
         ArrayList<String> lines = new ArrayList<>();
-        for (Map.Entry<String, MatchModel> entry : matches.entrySet())
-            createNewLine(lines, entry);
+        matches.entrySet().forEach(entry -> createNewLine(lines, entry));
         return lines;
     }
 
@@ -50,9 +49,10 @@ public class CsvMachineLearningModelCreatorService implements MachineLearningMod
         MatchModel match = entry.getValue();
         MachineLearningLineModel lineInfo = (MachineLearningLineModel) machineLearningModelLineConverter.convert(match);
 
-        String line = lineInfo.getMatchId() + "," + getChampionNameById(lineInfo.getTeamAPlayer1()) + "," +
-                getChampionNameById(lineInfo.getTeamAPlayer2()) + "," + getChampionNameById(lineInfo.getTeamAPlayer3()) + "," +
-                getChampionNameById(lineInfo.getTeamAPlayer4()) + "," + getChampionNameById(lineInfo.getTeamAPlayer5()) + "," +
+        String line = lineInfo.getMatchId() + "," +
+                getChampionNameById(lineInfo.getTeamAPlayer1()) + "," + getChampionNameById(lineInfo.getTeamAPlayer2()) + "," +
+                getChampionNameById(lineInfo.getTeamAPlayer3()) + "," + getChampionNameById(lineInfo.getTeamAPlayer4()) + "," +
+                getChampionNameById(lineInfo.getTeamAPlayer5()) + "," +
                 getChampionNameById(lineInfo.getTeamBPlayer1()) + "," + getChampionNameById(lineInfo.getTeamBPlayer2()) + "," +
                 getChampionNameById(lineInfo.getTeamBPlayer3()) + "," + getChampionNameById(lineInfo.getTeamBPlayer4()) + "," +
                 getChampionNameById(lineInfo.getTeamBPlayer5()) + "," + lineInfo.getWinnerTeam();

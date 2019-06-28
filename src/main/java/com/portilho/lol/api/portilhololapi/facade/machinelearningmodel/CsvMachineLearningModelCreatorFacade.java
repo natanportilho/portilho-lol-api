@@ -51,7 +51,8 @@ public class CsvMachineLearningModelCreatorFacade implements MachineLearningMode
         {
             throttle.acquire();
             MatchModel match = (MatchModel) matchConverter.convert(new JSONObject(matchService.getMatchById(matchId)));
-            if (match.getGameMode().equals(Constant.CLASSIC)){
+            if (match.getGameMode().equals(Constant.CLASSIC))
+            {
                 inMemoryDataBase.addMatch(match);
             }
 
@@ -61,8 +62,10 @@ public class CsvMachineLearningModelCreatorFacade implements MachineLearningMode
     private void addMatchesForOtherUsers()
     {
         Collection<MatchModel> matches = inMemoryDataBase.getMatches().values();
-        for(MatchModel match : matches){
-            if (inMemoryDataBase.getDatabaseSize() <= 200){
+        for (MatchModel match : matches)
+        {
+            if (inMemoryDataBase.getDatabaseSize() <= 200)
+            {
                 List<TeamModel> teams = match.getTeams();
                 teams.forEach(team -> addUserMatchesForParticipants(team.getParticipants()));
             }
