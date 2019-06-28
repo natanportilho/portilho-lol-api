@@ -40,10 +40,11 @@ public class LolChampionService implements ChampionService
     @Override
     public String getChampionNameById(String championId)
     {
-
         List<ChampionModel> champions = getAllChampions();
-        Optional<ChampionModel> champion = champions.stream().
-                filter(championModel -> championModel.getId().equals(championId)).findFirst();
+        Optional<ChampionModel> champion = champions.stream()
+                .filter(championModel -> championModel.getId().equals(championId))
+                .findFirst();
+
         if (champion.isPresent())
             return champion.get().getName();
         throw new ChampionException("Not able get champion by id " + championId);
@@ -63,13 +64,13 @@ public class LolChampionService implements ChampionService
         return champions;
     }
 
-    private void createChampionForKey(JSONObject championsInfo, Iterator<String> keys, ArrayList<ChampionModel> champions) throws JSONException
+    private void createChampionForKey(JSONObject championsInfo, Iterator<String> keys, ArrayList<ChampionModel> champions)
+            throws JSONException
     {
         String key = keys.next();
+
         if (championsInfo.get(key) instanceof JSONObject)
-        {
             champions.add(createChampion((JSONObject) championsInfo.get(key)));
-        }
     }
 
     private ChampionModel createChampion(JSONObject championAsJSON)
