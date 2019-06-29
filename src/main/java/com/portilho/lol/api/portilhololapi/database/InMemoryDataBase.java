@@ -1,30 +1,46 @@
 package com.portilho.lol.api.portilhololapi.database;
 
+import com.portilho.lol.api.portilhololapi.model.ChampionModel;
 import com.portilho.lol.api.portilhololapi.model.match.MatchModel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class InMemoryDataBase
 {
-    private static Map<String, MatchModel> matches = new HashMap<>();
+    private ArrayList<MatchModel> matches = new ArrayList<>();
+    private ArrayList<ChampionModel> champions = new ArrayList<>();
 
     public void addMatch(MatchModel match)
     {
-        matches.putIfAbsent(match.getMatchId(), match);
+        if (!matches.contains(match))
+            matches.add(match);
     }
 
-    public int getDatabaseSize(){
+    public void setChampions(ArrayList<ChampionModel> champs)
+    {
+        champions = champs;
+    }
+
+    public int getMatchesSize()
+    {
         return matches.size();
     }
 
-    public Map<String,MatchModel> getMatches(){
+    public ArrayList<MatchModel> getMatches()
+    {
         return matches;
     }
 
-    public static Map<String, MatchModel> getDatabase()
+    public ArrayList<MatchModel> getDatabase()
     {
         return matches;
+    }
+
+    public ChampionModel getChampionById(String championId)
+    {
+        return champions.stream().filter(champion -> champion.getId().equals(championId)).findFirst().get();
     }
 }

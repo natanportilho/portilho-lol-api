@@ -1,10 +1,12 @@
 package com.portilho.lol.api.portilhololapi.service.champion;
 
-import java.util.List;
+import com.portilho.lol.api.portilhololapi.model.ChampionModel;
+
+import java.util.ArrayList;
 
 public interface ChampionService
 {
-    List getAllChampions();
+    ArrayList<ChampionModel> getAllChampions();
 
     String getChampionNameById(String championId);
 }

@@ -2,10 +2,10 @@ package com.portilho.lol.api.portilhololapi.service.machinelearning;
 
 import com.portilho.lol.api.portilhololapi.constant.Constant;
 import com.portilho.lol.api.portilhololapi.converter.MachineLearningModelLineConverter;
+import com.portilho.lol.api.portilhololapi.database.InMemoryDataBase;
 import com.portilho.lol.api.portilhololapi.exception.MachineLearningModelException;
 import com.portilho.lol.api.portilhololapi.model.MachineLearningLineModel;
 import com.portilho.lol.api.portilhololapi.model.match.MatchModel;
-import com.portilho.lol.api.portilhololapi.service.champion.ChampionService;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -15,38 +15,36 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class CsvMachineLearningModelCreatorService implements MachineLearningModelCreatorService
 {
     @Resource
     private MachineLearningModelLineConverter machineLearningModelLineConverter;
     @Resource
-    private ChampionService championService;
+    private InMemoryDataBase inMemoryDataBase;
 
     @Override
-    public void createModel(Map<String, MatchModel> matches)
+    public void createModel(ArrayList<MatchModel> matches)
     {
         createCsvModelFromMatches(matches);
     }
 
-    private void createCsvModelFromMatches(Map<String, MatchModel> matches)
+    private void createCsvModelFromMatches(ArrayList<MatchModel> matches)
     {
         String targetFileName = Constant.LOL_MODEL + Constant.CSV;
         ArrayList<String> lines = createLines(matches);
         writeCsvModel(targetFileName, lines);
     }
 
-    private ArrayList<String> createLines(Map<String, MatchModel> matches)
+    private ArrayList<String> createLines(ArrayList<MatchModel> matches)
     {
         ArrayList<String> lines = new ArrayList<>();
-        matches.entrySet().forEach(entry -> createNewLine(lines, entry));
+        matches.forEach(match -> createNewLine(lines, match));
         return lines;
     }
 
-    private void createNewLine(ArrayList<String> lines, Map.Entry<String, MatchModel> entry)
+    private void createNewLine(ArrayList<String> lines, MatchModel match)
     {
-        MatchModel match = entry.getValue();
         MachineLearningLineModel lineInfo = (MachineLearningLineModel) machineLearningModelLineConverter.convert(match);
 
         String line = lineInfo.getMatchId() + "," +
@@ -73,6 +71,6 @@ public class CsvMachineLearningModelCreatorService implements MachineLearningMod
 
     private String getChampionNameById(String championId)
     {
-        return championService.getChampionNameById(championId);
+        return inMemoryDataBase.getChampionById(championId).getName();
     }
 }

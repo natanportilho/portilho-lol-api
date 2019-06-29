@@ -23,7 +23,7 @@ public class LolChampionService implements ChampionService
     private ModelConverter championConverter;
 
     @Override
-    public List getAllChampions()
+    public ArrayList<ChampionModel> getAllChampions()
     {
         try
         {
